@@ -1,23 +1,29 @@
 
 
 #include <iostream>
-
+#include "request.cpp"
+#include "generateIP.cpp"
+#include <queue>
 using namespace std;
 
 class webServer {
 
     public:
-        string status = "Avaialble";
-        string id = NULL;
-
+        int status = 0; //0 - avail, 1 - busy
+        string id = "";
+        
     
         void processreq(request req) {
 
-            this->id = "Busy";
+            this->status = 1;
             
-            cout<<this->id<<" Processed request: "<<request.getinIP()<<" to "<<request.getinIP()<<endl;
+            cout<<this->id<<" Processed request: "<<req.inIP<<" to "<<generateIP()<<endl;
+
+            this->status = 0 ;
 
         }
+
+        
     
 
     
@@ -27,4 +33,4 @@ class webServer {
 
 
 
-}
+};
