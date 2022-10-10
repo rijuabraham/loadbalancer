@@ -3,10 +3,7 @@
 
 using namespace std;
 
-class Requests{
-
-    public:
-        string inIP = NULL;
-        
-
-}
+struct request
+{
+    string inIP = generateIP();
+};
