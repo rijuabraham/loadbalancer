@@ -15,6 +15,9 @@ string generateIP (){
     {
         int val = rand() % 255;
         IP+= to_string(val);
+        if (i < 2){
+            IP+=".";
+        }  
     }
     
 
