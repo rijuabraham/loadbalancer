@@ -6,5 +6,6 @@ using namespace std;
 struct request
 {
     string inIP = generateIP();
-    int time = 0;
+    int time = rand() % 5 +1;
+
 };
