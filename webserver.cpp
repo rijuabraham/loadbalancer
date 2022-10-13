@@ -27,41 +27,25 @@ class webServer {
 
         }
 
-        void checkifcomplete (vector<webServer>& busyservers, int currtime, queue<webServer>& readyservers){
+        static void updateservers(int currtime, vector<webServer>& busyservers, queue<webServer>& webservers){
 
-            for (int i = 0; i < busyservers.size(); i++)
-            {
-                
+        vector<webServer> temp_busyservers;
+        // printq(webservers);
+        // printlst(busyservers);
+        for (int i = 0; i < busyservers.size(); i++)
+        {
+            if (currtime == busyservers.at(i).returntime){
+                cout<<"Time: "<<currtime<<" server id: "<<busyservers.at(i).id<<" is done since return time is "<<busyservers.at(i).returntime<<endl;
+                busyservers.at(i).processreq(currtime);
+                webservers.push(busyservers.at(i));
             }
-            
-        
-            
-
-            
-        }
-
-
-        void printq(queue<webServer> q,int currtime){//print function for debugging
-
-            cout<<"\n\n"<<"*****************FROM WEBSERVER - Ready************\n\n";
-
-        
-            while (!q.empty()){
-            cout<<"Time is: "<<currtime<<" "<<&(q.front())<<" "<<q.front().id<<" return time is "<<" "<<q.front().returntime<<endl;
-            q.pop();
+            else{
+                temp_busyservers.push_back(busyservers.at(i));
             }
-            cout<<endl;
 
         }
-        void printq(vector<webServer> serverlist,int currtime){//print function for debugging
-
-            cout<<"\n\n"<<"*****************FROM WEBSERVERL************\n\n";
-
-
-            for (int i = 0; i < serverlist.size(); i++)
-            {
-                cout<<"Time is: "<<currtime<<" "<<&(serverlist.at(i))<<" "<<serverlist.at(i).id<<" return time is "<<" "<<serverlist.at(i).returntime<<endl;
-            }
+        
+        busyservers = temp_busyservers;
 
     }
 
