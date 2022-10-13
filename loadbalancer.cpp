@@ -1,6 +1,9 @@
 
 #include <iostream>
 // #include "request.cpp"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "generateIP.cpp"
 #include "webserver.cpp"
 #include <queue>
@@ -180,7 +183,7 @@ class loadBalancer {
 
 int main () {
 
-
+    srand(time(NULL));
     loadBalancer mybalancer;
 
     // mybalancer.time = 100;
