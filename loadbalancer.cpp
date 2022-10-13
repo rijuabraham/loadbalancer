@@ -19,7 +19,7 @@ class loadBalancer {
     queue<request*> requestqueue;
     vector<webServer> busyservers;
 
-    int time = 100;
+    int time = 1000;
     int maxwebserverq = 0;
     
     public:
@@ -66,13 +66,24 @@ class loadBalancer {
 
     void start () {
 
-    
         
-
+        
+        
         for (int currtime = 0; currtime < time; currtime++)
         {
              
             cout<<"\nTime is: "<<currtime<<endl;
+
+
+            //Adding random requests
+            if (rand() % 2 == 0){
+                request* tempreq = new request;
+                cout<<"Adding random request with inIP "<<tempreq->inIP<<"...\n";
+                requestqueue.push(tempreq);
+            }
+
+
+
             if (!requestqueue.empty()){//we have requests
 
                 if (!webservers.empty()){//we have servers avaialble
@@ -143,15 +154,14 @@ int main () {
 
 
     freopen("output.txt","w",stdout);//couting to files Source: https://stackoverflow.com/questions/10150468/how-to-redirect-cin-and-cout-to-files
-    cout<<"write in file";
-
-
     srand(time(NULL));
+
     loadBalancer mybalancer;
 
     // mybalancer.time = 100;
-    mybalancer.setupservers(30);
-    mybalancer.setuprequests(50);
+    cout<<rand()%rand()<<endl;
+    mybalancer.setupservers(200);
+    mybalancer.setuprequests(10);
     mybalancer.start();
     
     return 0;
