@@ -8,6 +8,8 @@
 #include "webserver.cpp"
 #include <queue>
 #include <vector>
+#include<cstdio>
+
 using namespace std;
 
 
@@ -17,7 +19,7 @@ class loadBalancer {
     queue<request*> requestqueue;
     vector<webServer> busyservers;
 
-    int time = 27;
+    int time = 100;
     int maxwebserverq = 0;
     
     public:
@@ -64,38 +66,13 @@ class loadBalancer {
 
     void start () {
 
-        // int num_rand_req = rand() % requestqueue.size();
-        // for (int i = 0; i < num_rand_req; i++)// creating random request
-        // {
-            
-        // }
+    
         
-        // int i = 0;
-        // while ((!requestqueue.empty()) && time > 0)    
-        // {
-            
-        
-        //     request currreq = *(requestqueue.front());
-        //     requestqueue.pop();
-
-
-        //     webServer currserver = webservers.front();
-        //     webservers.pop();
-
-        //     currserver.processreq(currreq,busyservers,  i,webservers );
-        //     // webservers.push(currserver);
-            
-        //     time--;
-        //     i++;
-
-            
-
-        // ///////////////For loop
-
 
         for (int currtime = 0; currtime < time; currtime++)
         {
-            
+             
+            cout<<"\nTime is: "<<currtime<<endl;
             if (!requestqueue.empty()){//we have requests
 
                 if (!webservers.empty()){//we have servers avaialble
@@ -116,46 +93,27 @@ class loadBalancer {
                 
                 
             }
+
+            else if (requestqueue.empty() && busyservers.size() <= 0){
+                cout<<"All request processed!!!!!!!";
+                break;
+            }
             webServer::updateservers(currtime,busyservers,webservers);
         }
+
+        if (busyservers.size() > 0) {cout<<"Ran out of time reminin servers are busy with requests\n";}
         for (int i = 0; i < busyservers.size(); i++)
         {
-            cout<<busyservers.at(i).id<<endl;
+            
+            cout<<busyservers.at(i).id<<" ";
         }
+        cout<<endl;
         
-        
-
-
-
-
-
-        
-        // printq(webservers);
-        // printlst(busyservers);
+     
         
     }
 
-    // void updateservers(int currtime){
-
-    //     vector<webServer> temp_busyservers;
-    //     // printq(webservers);
-    //     // printlst(busyservers);
-    //     for (int i = 0; i < busyservers.size(); i++)
-    //     {
-    //         if (currtime == busyservers.at(i).returntime){
-    //             cout<<"Time: "<<currtime<<" server id: "<<busyservers.at(i).id<<" is done since return time is "<<busyservers.at(i).returntime<<endl;
-    //             busyservers.at(i).processreq(currtime);
-    //             webservers.push(busyservers.at(i));
-    //         }
-    //         else{
-    //             temp_busyservers.push_back(busyservers.at(i));
-    //         }
-
-    //     }
-        
-    //     busyservers = temp_busyservers;
-
-    // }
+    
 
     void printq(queue<webServer> q){//print function for debugging
 
@@ -183,12 +141,17 @@ class loadBalancer {
 
 int main () {
 
+
+    freopen("output.txt","w",stdout);//couting to files Source: https://stackoverflow.com/questions/10150468/how-to-redirect-cin-and-cout-to-files
+    cout<<"write in file";
+
+
     srand(time(NULL));
     loadBalancer mybalancer;
 
     // mybalancer.time = 100;
-    mybalancer.setupservers(10);
-    mybalancer.setuprequests(20);
+    mybalancer.setupservers(30);
+    mybalancer.setuprequests(50);
     mybalancer.start();
     
     return 0;
