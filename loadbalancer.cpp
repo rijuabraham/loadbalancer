@@ -116,7 +116,7 @@ class loadBalancer {
                 
                 
             }
-            updateservers(currtime);
+            webServer::updateservers(currtime,busyservers,webservers);
         }
         for (int i = 0; i < busyservers.size(); i++)
         {
@@ -135,27 +135,27 @@ class loadBalancer {
         
     }
 
-    void updateservers(int currtime){
+    // void updateservers(int currtime){
 
-        vector<webServer> temp_busyservers;
-        // printq(webservers);
-        // printlst(busyservers);
-        for (int i = 0; i < busyservers.size(); i++)
-        {
-            if (currtime == busyservers.at(i).returntime){
-                cout<<"Time: "<<currtime<<" server id: "<<busyservers.at(i).id<<" is done since return time is "<<busyservers.at(i).returntime<<endl;
-                busyservers.at(i).processreq(currtime);
-                webservers.push(busyservers.at(i));
-            }
-            else{
-                temp_busyservers.push_back(busyservers.at(i));
-            }
+    //     vector<webServer> temp_busyservers;
+    //     // printq(webservers);
+    //     // printlst(busyservers);
+    //     for (int i = 0; i < busyservers.size(); i++)
+    //     {
+    //         if (currtime == busyservers.at(i).returntime){
+    //             cout<<"Time: "<<currtime<<" server id: "<<busyservers.at(i).id<<" is done since return time is "<<busyservers.at(i).returntime<<endl;
+    //             busyservers.at(i).processreq(currtime);
+    //             webservers.push(busyservers.at(i));
+    //         }
+    //         else{
+    //             temp_busyservers.push_back(busyservers.at(i));
+    //         }
 
-        }
+    //     }
         
-        busyservers = temp_busyservers;
+    //     busyservers = temp_busyservers;
 
-    }
+    // }
 
     void printq(queue<webServer> q){//print function for debugging
 
