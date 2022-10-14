@@ -35,7 +35,7 @@ class webServer {
         for (int i = 0; i < busyservers.size(); i++)
         {
             if (currtime == busyservers.at(i).returntime){
-                cout<<"Time: "<<currtime<<" server id: "<<busyservers.at(i).id<<" is done since return time is "<<busyservers.at(i).returntime<<endl;
+                // cout<<"Time: "<<currtime<<" server id: "<<busyservers.at(i).id<<" is done since return time is "<<busyservers.at(i).returntime<<endl;
                 busyservers.at(i).processreq(currtime);
                 webservers.push(busyservers.at(i));
             }

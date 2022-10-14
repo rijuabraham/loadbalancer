@@ -19,7 +19,8 @@ class loadBalancer {
     queue<request*> requestqueue;
     vector<webServer> busyservers;
 
-    int time = 1000;
+    public:
+    int time = 10000;
     int maxwebserverq = 0;
     
     public:
@@ -37,7 +38,8 @@ class loadBalancer {
         }
         delete[] serverobjects;
 
-        printq(webservers);
+        // printq(webservers);
+        cout<<"starting webserver Size: "<<webservers.size()<<endl;
     }
 
     void setuprequests(int num) {//setting up the request queue
@@ -52,7 +54,8 @@ class loadBalancer {
         }    
         
 
-        this->printq(requestqueue);
+        // this->printq(requestqueue);
+        cout<<"starting request size: "<<requestqueue.size()<<endl;
     }
     void printq(queue<request*> q){//print function for debugging
 
@@ -68,7 +71,7 @@ class loadBalancer {
 
         
         
-        
+        int remtime;
         for (int currtime = 0; currtime < time; currtime++)
         {
              
@@ -106,10 +109,15 @@ class loadBalancer {
             }
 
             else if (requestqueue.empty() && busyservers.size() <= 0){
-                cout<<"All request processed!!!!!!!";
+                cout<<"All request processed!!!!!!!\n";
+                cout<<"Ending webserver size: "<<webservers.size()<<endl;
+                cout<<"Ending requestqueue size: "<<requestqueue.size()<<endl;
+                cout<<"Ending clock cycle: "<<currtime<<endl;
                 break;
             }
             webServer::updateservers(currtime,busyservers,webservers);
+
+            remtime = currtime;
         }
 
         if (busyservers.size() > 0) {cout<<"Ran out of time reminin servers are busy with requests\n";}
@@ -119,7 +127,9 @@ class loadBalancer {
             cout<<busyservers.at(i).id<<" ";
         }
         cout<<endl;
-        
+        cout<<"Ending webserver size: "<<webservers.size()<<endl;
+        cout<<"Ending requestqueue size: "<<requestqueue.size()<<endl;
+        cout<<"Ending clock cycle: "<<remtime<<endl;
      
         
     }
@@ -153,15 +163,17 @@ class loadBalancer {
 int main () {
 
 
-    freopen("output.txt","w",stdout);//couting to files Source: https://stackoverflow.com/questions/10150468/how-to-redirect-cin-and-cout-to-files
+    freopen("result.txt","w",stdout);//couting to files Source: https://stackoverflow.com/questions/10150468/how-to-redirect-cin-and-cout-to-files
     srand(time(NULL));
 
     loadBalancer mybalancer;
 
     // mybalancer.time = 100;
-    cout<<rand()%rand()<<endl;
-    mybalancer.setupservers(200);
-    mybalancer.setuprequests(10);
+    // cout<<rand()%rand()<<endl;
+
+    mybalancer.setupservers(10);
+    mybalancer.setuprequests(20);
+    mybalancer.time = 10000;
     mybalancer.start();
     
     return 0;
